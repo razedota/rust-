@@ -1,0 +1,6 @@
+fn main() {
+    let eps: f64 = 1e-10;
+    assert!(((0.1f64 + 0.2 - 0.3).abs()) < eps);
+
+    println!("Success!");
+}
