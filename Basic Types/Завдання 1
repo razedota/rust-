@@ -1,0 +1,10 @@
+fn main() {
+    let x: i32 = 5;
+    let mut y = 5; // прибрали :u32
+
+    y = x;
+
+    let z = 10; // тип z — i32
+
+    println!("Success!");
+}
