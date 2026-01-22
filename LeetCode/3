@@ -1,0 +1,39 @@
+class Solution(object):
+    def lenOfVDiagonal(self, grid):
+        n, m = len(grid), len(grid[0])
+        dirs = [(1,1), (1,-1), (-1,-1), (-1,1)]
+
+        def expected(step):
+            if step == 0:
+                return 1
+            return 2 if step % 2 == 1 else 0
+
+        ans = 0
+
+        for i in range(n):
+            for j in range(m):
+                if grid[i][j] != 1:
+                    continue
+
+                for d in range(4):
+                    stack = [(i, j, d, False, 0)]
+
+                    while stack:
+                        r, c, dirc, turned, step = stack.pop()
+                        ans = max(ans, step + 1)
+
+                        nr = r + dirs[dirc][0]
+                        nc = c + dirs[dirc][1]
+                        if 0 <= nr < n and 0 <= nc < m:
+                            if grid[nr][nc] == expected(step + 1):
+                                stack.append((nr, nc, dirc, turned, step + 1))
+
+                        if not turned:
+                            nd = (dirc + 1) % 4
+                            nr = r + dirs[nd][0]
+                            nc = c + dirs[nd][1]
+                            if 0 <= nr < n and 0 <= nc < m:
+                                if grid[nr][nc] == expected(step + 1):
+                                    stack.append((nr, nc, nd, True, step + 1))
+
+        return ans
